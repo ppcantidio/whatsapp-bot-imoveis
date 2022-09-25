@@ -11,7 +11,17 @@ class Database:
         collection = self.db.get_collection(collection)
         collection.insert_one(object_dictionary)
 
-    def select_object(self, collection, where):
+    def select_one_object(self, collection, where):
         collection = self.db.get_collection(collection)
-        results = list(collection.find(where))
+        results = collection.find_one(where)
         return results
+
+    def select_one_object_sort(self, collection, where):
+        collection = self.db.get_collection(collection)
+        results = collection.find_one(where)
+        return results
+
+    def select_col(self, collection, where={}):
+        coll = self.db.get_collection(collection)
+
+        return coll.find(where)

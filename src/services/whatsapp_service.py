@@ -14,17 +14,12 @@ class Whatsapp:
             "Authorization": f"Bearer {self.token}",
         }
 
-    def menssagem_simples(self, to_number, menssagem):
-
-        payload = json.dumps({"messaging_product": "whatsapp", "to": to_number, "text": {"body": menssagem}})
-
+    def simple_message(self, to_number, text):
+        payload = json.dumps({"messaging_product": "whatsapp", "to": to_number, "text": {"body": text}})
         response = requests.request("POST", self.url, headers=self.headers, data=payload)
-
         print(response.text)
 
-    def menssagem_lista(self, data, pergunta, titulo, opcoes):
-        to_number = data.get("number")
-
+    def mensagem_lista(self, to_number, pergunta, titulo, opcoes):
         payload = json.dumps(
             {
                 "messaging_product": "whatsapp",
@@ -46,7 +41,5 @@ class Whatsapp:
                 },
             }
         )
-
         response = requests.request("POST", self.url, headers=self.headers, data=payload)
-
         print(response.text)
